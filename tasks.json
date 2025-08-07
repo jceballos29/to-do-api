@@ -1,5 +1,26 @@
 [
-  { "id": 1, "title": "Aprender Node.JS", "status": 2},
-  { "id": 2, "title": "Crear una API", "status": 1},
-  { "id": 3, "title": "Subir el código a GitHub", "status": 0 }
+  { 
+    "id": 1, 
+    "title": "Aprender Node.JS",
+    "description": "Estudiar los fundamentos de Node.js y sus características principales", 
+    "status": 2,
+    "createdAt": "2025-08-01T10:00:00.000Z",
+    "updatedAt": "2025-08-05T15:30:00.000Z"
+  },
+  { 
+    "id": 2, 
+    "title": "Crear una API",
+    "description": "Desarrollar una API REST completa con operaciones CRUD", 
+    "status": 1,
+    "createdAt": "2025-08-02T09:15:00.000Z",
+    "updatedAt": "2025-08-03T14:20:00.000Z"
+  },
+  { 
+    "id": 3, 
+    "title": "Subir el código a GitHub",
+    "description": "Crear repositorio y subir el proyecto completo con documentación", 
+    "status": 0,
+    "createdAt": "2025-08-03T16:45:00.000Z",
+    "updatedAt": "2025-08-03T16:45:00.000Z"
+  }
 ]

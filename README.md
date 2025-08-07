@@ -9,11 +9,25 @@ Esta API permite gestionar una lista de tareas (TODO list) usando un archivo JSO
 ## 🎯 Funcionalidades
 
 - ✅ **Listar tareas**: Obtener todas las tareas o filtrarlas por estado
-- ✅ **Crear tareas**: Agregar nuevas tareas a la lista
-- ✅ **Actualizar tareas**: Modificar el título y/o estado de una tarea
+- ✅ **Crear tareas**: Agregar nuevas tareas a la lista con timestamp automático
+- ✅ **Actualizar tareas**: Modificar la descripción y/o estado de una tarea
 - ✅ **Eliminar tareas**: Borrar tareas de la lista
 - ✅ **Cambiar estado**: Marcar tareas como pendientes, en progreso o completadas
 - ✅ **Filtrar por estado**: Ver solo las tareas de un estado específico
+- ✅ **Timestamps automáticos**: Registro automático de fechas de creación y actualización
+
+## 📊 Estructura de Tareas
+
+Cada tarea contiene los siguientes campos:
+
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| `id` | number | Identificador único de la tarea |
+| `title` | string | Título corto de la tarea |
+| `description` | string | Descripción detallada de la tarea |
+| `status` | number | Estado de la tarea (0, 1, o 2) |
+| `createdAt` | string | Fecha y hora de creación (formato ISO 8601) |
+| `updatedAt` | string | Fecha y hora de última actualización (formato ISO 8601) |
 
 ## 📊 Estados de Tareas
 
@@ -48,18 +62,41 @@ Esta API permite gestionar una lista de tareas (TODO list) usando un archivo JSO
    Asegúrate de que existe el archivo `tasks.json` en la raíz del proyecto. Si no existe, créalo con el siguiente contenido:
    ```json
    [
-     { "id": 1, "title": "Aprender Node.JS", "status": 2},
-     { "id": 2, "title": "Crear una API", "status": 1},
-     { "id": 3, "title": "Subir el código a GitHub", "status": 0 }
+     { 
+       "id": 1, 
+       "title": "Aprender Node.JS",
+       "description": "Estudiar los fundamentos de Node.js y sus características principales", 
+       "status": 2,
+       "createdAt": "2025-08-01T10:00:00.000Z",
+       "updatedAt": "2025-08-05T15:30:00.000Z"
+     },
+     { 
+       "id": 2, 
+       "title": "Crear una API",
+       "description": "Desarrollar una API REST completa con operaciones CRUD", 
+       "status": 1,
+       "createdAt": "2025-08-02T09:15:00.000Z",
+       "updatedAt": "2025-08-03T14:20:00.000Z"
+     },
+     { 
+       "id": 3, 
+       "title": "Subir el código a GitHub",
+       "description": "Crear repositorio y subir el proyecto completo con documentación", 
+       "status": 0,
+       "createdAt": "2025-08-03T16:45:00.000Z",
+       "updatedAt": "2025-08-03T16:45:00.000Z"
+     }
    ]
    ```
 
 4. **Iniciar el servidor**
+   
+   Para producción:
    ```bash
    npm start
    ```
    
-   O para desarrollo:
+   Para desarrollo (con recarga automática usando nodemon):
    ```bash
    npm run dev
    ```
@@ -69,6 +106,21 @@ Esta API permite gestionar una lista de tareas (TODO list) usando un archivo JSO
    Abre tu navegador y ve a: `http://localhost:3000`
    
    Deberías ver un mensaje de bienvenida con información de la API.
+
+## 🛠️ Herramientas de Desarrollo
+
+### Nodemon para Desarrollo
+El proyecto incluye **nodemon** para desarrollo, que reinicia automáticamente el servidor cuando detecta cambios en los archivos:
+
+```bash
+# Usar para desarrollo - reinicio automático
+npm run dev
+
+# Usar para producción - sin reinicio automático  
+npm start
+```
+
+Con nodemon activado, cualquier cambio que hagas en el código se reflejará automáticamente sin necesidad de reiniciar manualmente el servidor.
 
 ## 📚 Documentación de la API
 
@@ -126,12 +178,18 @@ GET http://localhost:3000/api/tasks?status=2
     {
       "id": 1,
       "title": "Aprender Node.JS",
-      "status": 2
+      "description": "Estudiar los fundamentos de Node.js y sus características principales",
+      "status": 2,
+      "createdAt": "2025-08-01T10:00:00.000Z",
+      "updatedAt": "2025-08-05T15:30:00.000Z"
     },
     {
       "id": 2,
       "title": "Crear una API",
-      "status": 1
+      "description": "Desarrollar una API REST completa con operaciones CRUD",
+      "status": 1,
+      "createdAt": "2025-08-02T09:15:00.000Z",
+      "updatedAt": "2025-08-03T14:20:00.000Z"
     }
   ],
   "total": 2
@@ -159,7 +217,10 @@ GET http://localhost:3000/api/tasks/1
   "data": {
     "id": 1,
     "title": "Aprender Node.JS",
-    "status": 2
+    "description": "Estudiar los fundamentos de Node.js y sus características principales",
+    "status": 2,
+    "createdAt": "2025-08-01T10:00:00.000Z",
+    "updatedAt": "2025-08-05T15:30:00.000Z"
   }
 }
 ```
@@ -181,12 +242,14 @@ Crea una nueva tarea.
 ```json
 {
   "title": "Nueva tarea",
+  "description": "Descripción detallada de la nueva tarea",
   "status": 0
 }
 ```
 
 **Campos:**
-- `title` (obligatorio): Título de la tarea
+- `title` (obligatorio): Título corto de la tarea
+- `description` (obligatorio): Descripción detallada de la tarea
 - `status` (opcional): Estado inicial (por defecto: 0)
 
 **Ejemplo:**
@@ -196,6 +259,7 @@ Content-Type: application/json
 
 {
   "title": "Estudiar JavaScript",
+  "description": "Repasar conceptos avanzados de JavaScript como closures y async/await",
   "status": 0
 }
 ```
@@ -208,7 +272,10 @@ Content-Type: application/json
   "data": {
     "id": 4,
     "title": "Estudiar JavaScript",
-    "status": 0
+    "description": "Repasar conceptos avanzados de JavaScript como closures y async/await",
+    "status": 0,
+    "createdAt": "2025-08-07T10:30:00.000Z",
+    "updatedAt": "2025-08-07T10:30:00.000Z"
   }
 }
 ```
@@ -225,12 +292,14 @@ Actualiza una tarea existente (título y/o estado).
 ```json
 {
   "title": "Título actualizado",
+  "description": "Descripción actualizada",
   "status": 1
 }
 ```
 
 **Campos opcionales:**
 - `title`: Nuevo título
+- `description`: Nueva descripción
 - `status`: Nuevo estado
 
 **Ejemplo:**
@@ -240,6 +309,7 @@ Content-Type: application/json
 
 {
   "title": "Dominar Node.JS",
+  "description": "Convertirse en experto en Node.js y sus ecosistemas",
   "status": 1
 }
 ```
@@ -252,7 +322,10 @@ Content-Type: application/json
   "data": {
     "id": 1,
     "title": "Dominar Node.JS",
-    "status": 1
+    "description": "Convertirse en experto en Node.js y sus ecosistemas",
+    "status": 1,
+    "createdAt": "2025-08-01T10:00:00.000Z",
+    "updatedAt": "2025-08-07T10:35:00.000Z"
   }
 }
 ```
@@ -290,7 +363,10 @@ Content-Type: application/json
   "data": {
     "id": 1,
     "title": "Dominar Node.JS",
-    "status": 2
+    "description": "Convertirse en experto en Node.js y sus ecosistemas",
+    "status": 2,
+    "createdAt": "2025-08-01T10:00:00.000Z",
+    "updatedAt": "2025-08-07T10:40:00.000Z"
   }
 }
 ```
@@ -316,7 +392,10 @@ DELETE http://localhost:3000/api/tasks/1
   "data": {
     "id": 1,
     "title": "Dominar Node.JS",
-    "status": 2
+    "description": "Convertirse en experto en Node.js y sus ecosistemas",
+    "status": 2,
+    "createdAt": "2025-08-01T10:00:00.000Z",
+    "updatedAt": "2025-08-07T10:40:00.000Z"
   }
 }
 ```
@@ -329,7 +408,7 @@ DELETE http://localhost:3000/api/tasks/1
 ```bash
 curl -X POST http://localhost:3000/api/tasks \
   -H "Content-Type: application/json" \
-  -d '{"title": "Hacer ejercicio", "status": 0}'
+  -d '{"title": "Hacer ejercicio", "description": "Rutina de ejercicios de 30 minutos", "status": 0}'
 ```
 
 ### 2. Listar todas las tareas
@@ -349,11 +428,11 @@ curl -X PATCH http://localhost:3000/api/tasks/1/status \
   -d '{"status": 2}'
 ```
 
-### 5. Actualizar título y estado de una tarea
+### 5. Actualizar título, descripción y estado de una tarea
 ```bash
 curl -X PUT http://localhost:3000/api/tasks/1 \
   -H "Content-Type: application/json" \
-  -d '{"title": "Hacer ejercicio diario", "status": 1}'
+  -d '{"title": "Hacer ejercicio diario", "description": "Rutina de ejercicios matutinos de 45 minutos", "status": 1}'
 ```
 
 ### 6. Eliminar una tarea
@@ -431,6 +510,14 @@ const TASKS_FILE = path.join(__dirname, 'tasks.json'); // Cambia 'tasks.json' po
 {
   "success": false,
   "message": "El título de la tarea es obligatorio"
+}
+```
+
+**O si falta la descripción:**
+```json
+{
+  "success": false,
+  "message": "La descripción de la tarea es obligatoria"
 }
 ```
 

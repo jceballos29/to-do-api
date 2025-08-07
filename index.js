@@ -70,6 +70,14 @@ function generateNewId(tasks) {
     return maxId + 1;
 }
 
+/**
+ * Función para obtener la fecha y hora actual en formato ISO
+ * @returns {string} Fecha y hora actual en formato ISO
+ */
+function getCurrentDateTime() {
+    return new Date().toISOString();
+}
+
 // 4. DEFINICIÓN DE RUTAS (ENDPOINTS)
 // Cada ruta corresponde a una funcionalidad de nuestra API
 
@@ -186,13 +194,21 @@ app.get('/api/tasks/:id', (req, res) => {
 app.post('/api/tasks', (req, res) => {
     try {
         // Obtenemos los datos enviados en el cuerpo de la petición
-        const { title, status } = req.body;
+        const { title, description, status } = req.body;
         
-        // Validamos que se haya enviado un título
+        // Validamos que se haya enviado un título (obligatorio)
         if (!title || title.trim() === '') {
             return res.status(400).json({
                 success: false,
                 message: 'El título de la tarea es obligatorio'
+            });
+        }
+        
+        // Validamos que se haya enviado una descripción (obligatoria)
+        if (!description || description.trim() === '') {
+            return res.status(400).json({
+                success: false,
+                message: 'La descripción de la tarea es obligatoria'
             });
         }
         
@@ -207,11 +223,17 @@ app.post('/api/tasks', (req, res) => {
         // Leemos las tareas existentes
         const tasks = readTasks();
         
-        // Creamos la nueva tarea
+        // Obtenemos la fecha y hora actual
+        const currentDateTime = getCurrentDateTime();
+        
+        // Creamos la nueva tarea con todos los campos requeridos
         const newTask = {
             id: generateNewId(tasks),
             title: title.trim(),
-            status: taskStatus
+            description: description.trim(),
+            status: taskStatus,
+            createdAt: currentDateTime,
+            updatedAt: currentDateTime // Al crear, createdAt y updatedAt son iguales
         };
         
         // Agregamos la nueva tarea al array
@@ -254,7 +276,7 @@ app.put('/api/tasks/:id', (req, res) => {
         }
         
         // Obtenemos los nuevos datos del cuerpo de la petición
-        const { title, status } = req.body;
+        const { title, description, status } = req.body;
         
         // Leemos las tareas existentes
         const tasks = readTasks();
@@ -270,6 +292,9 @@ app.put('/api/tasks/:id', (req, res) => {
             });
         }
         
+        // Variable para saber si se realizó algún cambio
+        let wasUpdated = false;
+        
         // Actualizamos los campos que se enviaron
         if (title !== undefined) {
             // Validamos que el título no esté vacío
@@ -280,6 +305,19 @@ app.put('/api/tasks/:id', (req, res) => {
                 });
             }
             tasks[taskIndex].title = title.trim();
+            wasUpdated = true;
+        }
+        
+        if (description !== undefined) {
+            // Validamos que la descripción no esté vacía
+            if (description.trim() === '') {
+                return res.status(400).json({
+                    success: false,
+                    message: 'La descripción no puede estar vacía'
+                });
+            }
+            tasks[taskIndex].description = description.trim();
+            wasUpdated = true;
         }
         
         if (status !== undefined) {
@@ -292,6 +330,12 @@ app.put('/api/tasks/:id', (req, res) => {
                 });
             }
             tasks[taskIndex].status = newStatus;
+            wasUpdated = true;
+        }
+        
+        // Si se realizó algún cambio, actualizamos la fecha de modificación
+        if (wasUpdated) {
+            tasks[taskIndex].updatedAt = getCurrentDateTime();
         }
         
         // Guardamos los cambios en el archivo
@@ -421,8 +465,9 @@ app.patch('/api/tasks/:id/status', (req, res) => {
             });
         }
         
-        // Actualizamos solo el estado
+        // Actualizamos solo el estado y la fecha de modificación
         tasks[taskIndex].status = newStatus;
+        tasks[taskIndex].updatedAt = getCurrentDateTime();
         
         // Guardamos los cambios
         saveTasks(tasks);
