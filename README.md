@@ -65,7 +65,7 @@ Cada tarea contiene los siguientes campos:
      { 
        "id": 1, 
        "title": "Aprender Node.JS",
-       "description": "Estudiar los fundamentos de Node.js y sus características principales", 
+       "description": "Estudiar los fundamentos de Node.js y crear proyectos prácticos", 
        "status": 2,
        "createdAt": "2025-08-01T10:00:00.000Z",
        "updatedAt": "2025-08-05T15:30:00.000Z"
@@ -73,15 +73,15 @@ Cada tarea contiene los siguientes campos:
      { 
        "id": 2, 
        "title": "Crear una API",
-       "description": "Desarrollar una API REST completa con operaciones CRUD", 
+       "description": "Desarrollar una API REST completa usando Express.js", 
        "status": 1,
        "createdAt": "2025-08-02T09:15:00.000Z",
        "updatedAt": "2025-08-03T14:20:00.000Z"
      },
      { 
        "id": 3, 
-       "title": "Subir el código a GitHub",
-       "description": "Crear repositorio y subir el proyecto completo con documentación", 
+       "title": "Subir código a GitHub",
+       "description": "Crear repositorio y subir el proyecto con documentación completa", 
        "status": 0,
        "createdAt": "2025-08-03T16:45:00.000Z",
        "updatedAt": "2025-08-03T16:45:00.000Z"
@@ -96,31 +96,18 @@ Cada tarea contiene los siguientes campos:
    npm start
    ```
    
-   Para desarrollo (con recarga automática usando nodemon):
+   Para desarrollo (con nodemon - reinicio automático):
    ```bash
    npm run dev
    ```
+   
+   > **Nota**: El comando `npm run dev` usa nodemon, que reinicia automáticamente el servidor cuando detecta cambios en los archivos. Esto es muy útil durante el desarrollo.
 
 5. **Verificar que funciona**
    
    Abre tu navegador y ve a: `http://localhost:3000`
    
    Deberías ver un mensaje de bienvenida con información de la API.
-
-## 🛠️ Herramientas de Desarrollo
-
-### Nodemon para Desarrollo
-El proyecto incluye **nodemon** para desarrollo, que reinicia automáticamente el servidor cuando detecta cambios en los archivos:
-
-```bash
-# Usar para desarrollo - reinicio automático
-npm run dev
-
-# Usar para producción - sin reinicio automático  
-npm start
-```
-
-Con nodemon activado, cualquier cambio que hagas en el código se reflejará automáticamente sin necesidad de reiniciar manualmente el servidor.
 
 ## 📚 Documentación de la API
 
@@ -178,7 +165,7 @@ GET http://localhost:3000/api/tasks?status=2
     {
       "id": 1,
       "title": "Aprender Node.JS",
-      "description": "Estudiar los fundamentos de Node.js y sus características principales",
+      "description": "Estudiar los fundamentos de Node.js y crear proyectos prácticos",
       "status": 2,
       "createdAt": "2025-08-01T10:00:00.000Z",
       "updatedAt": "2025-08-05T15:30:00.000Z"
@@ -186,7 +173,7 @@ GET http://localhost:3000/api/tasks?status=2
     {
       "id": 2,
       "title": "Crear una API",
-      "description": "Desarrollar una API REST completa con operaciones CRUD",
+      "description": "Desarrollar una API REST completa usando Express.js",
       "status": 1,
       "createdAt": "2025-08-02T09:15:00.000Z",
       "updatedAt": "2025-08-03T14:20:00.000Z"
@@ -217,7 +204,7 @@ GET http://localhost:3000/api/tasks/1
   "data": {
     "id": 1,
     "title": "Aprender Node.JS",
-    "description": "Estudiar los fundamentos de Node.js y sus características principales",
+    "description": "Estudiar los fundamentos de Node.js y crear proyectos prácticos",
     "status": 2,
     "createdAt": "2025-08-01T10:00:00.000Z",
     "updatedAt": "2025-08-05T15:30:00.000Z"
@@ -259,7 +246,7 @@ Content-Type: application/json
 
 {
   "title": "Estudiar JavaScript",
-  "description": "Repasar conceptos avanzados de JavaScript como closures y async/await",
+  "description": "Aprender conceptos avanzados de JavaScript como closures y async/await",
   "status": 0
 }
 ```
@@ -272,7 +259,7 @@ Content-Type: application/json
   "data": {
     "id": 4,
     "title": "Estudiar JavaScript",
-    "description": "Repasar conceptos avanzados de JavaScript como closures y async/await",
+    "description": "Aprender conceptos avanzados de JavaScript como closures y async/await",
     "status": 0,
     "createdAt": "2025-08-07T10:30:00.000Z",
     "updatedAt": "2025-08-07T10:30:00.000Z"
@@ -309,7 +296,7 @@ Content-Type: application/json
 
 {
   "title": "Dominar Node.JS",
-  "description": "Convertirse en experto en Node.js y sus ecosistemas",
+  "description": "Convertirse en experto en Node.js y sus frameworks",
   "status": 1
 }
 ```
@@ -322,7 +309,7 @@ Content-Type: application/json
   "data": {
     "id": 1,
     "title": "Dominar Node.JS",
-    "description": "Convertirse en experto en Node.js y sus ecosistemas",
+    "description": "Convertirse en experto en Node.js y sus frameworks",
     "status": 1,
     "createdAt": "2025-08-01T10:00:00.000Z",
     "updatedAt": "2025-08-07T10:35:00.000Z"
@@ -363,7 +350,7 @@ Content-Type: application/json
   "data": {
     "id": 1,
     "title": "Dominar Node.JS",
-    "description": "Convertirse en experto en Node.js y sus ecosistemas",
+    "description": "Convertirse en experto en Node.js y sus frameworks",
     "status": 2,
     "createdAt": "2025-08-01T10:00:00.000Z",
     "updatedAt": "2025-08-07T10:40:00.000Z"
@@ -392,7 +379,7 @@ DELETE http://localhost:3000/api/tasks/1
   "data": {
     "id": 1,
     "title": "Dominar Node.JS",
-    "description": "Convertirse en experto en Node.js y sus ecosistemas",
+    "description": "Convertirse en experto en Node.js y sus frameworks",
     "status": 2,
     "createdAt": "2025-08-01T10:00:00.000Z",
     "updatedAt": "2025-08-07T10:40:00.000Z"
@@ -408,7 +395,7 @@ DELETE http://localhost:3000/api/tasks/1
 ```bash
 curl -X POST http://localhost:3000/api/tasks \
   -H "Content-Type: application/json" \
-  -d '{"title": "Hacer ejercicio", "description": "Rutina de ejercicios de 30 minutos", "status": 0}'
+  -d '{"title": "Hacer ejercicio", "description": "Rutina diaria de ejercicios por 30 minutos", "status": 0}'
 ```
 
 ### 2. Listar todas las tareas
@@ -432,7 +419,7 @@ curl -X PATCH http://localhost:3000/api/tasks/1/status \
 ```bash
 curl -X PUT http://localhost:3000/api/tasks/1 \
   -H "Content-Type: application/json" \
-  -d '{"title": "Hacer ejercicio diario", "description": "Rutina de ejercicios matutinos de 45 minutos", "status": 1}'
+  -d '{"title": "Hacer ejercicio diario", "description": "Rutina completa de ejercicios cardiovasculares y fuerza", "status": 1}'
 ```
 
 ### 6. Eliminar una tarea
@@ -475,6 +462,15 @@ to-do-api/
 
 ## 🔧 Configuración Avanzada
 
+### Nodemon para Desarrollo
+Este proyecto incluye nodemon configurado para desarrollo. Nodemon reinicia automáticamente el servidor cuando detecta cambios en los archivos.
+
+**Configuración de nodemon (`nodemon.json`):**
+- Observa archivos `.js` y `.json`
+- Ignora `node_modules/` y archivos de test
+- Retraso de 2 segundos antes de reiniciar
+- Establece `NODE_ENV=development`
+
 ### Cambiar el Puerto
 Para cambiar el puerto donde corre el servidor, modifica la línea en `index.js`:
 ```javascript
@@ -513,7 +509,7 @@ const TASKS_FILE = path.join(__dirname, 'tasks.json'); // Cambia 'tasks.json' po
 }
 ```
 
-**O si falta la descripción:**
+**Descripción faltante:**
 ```json
 {
   "success": false,

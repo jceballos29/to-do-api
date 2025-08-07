@@ -1,26 +1,34 @@
 [
-  { 
-    "id": 1, 
+  {
+    "id": 1,
     "title": "Aprender Node.JS",
-    "description": "Estudiar los fundamentos de Node.js y sus características principales", 
+    "description": "Estudiar los fundamentos de Node.js y crear proyectos prácticos",
     "status": 2,
     "createdAt": "2025-08-01T10:00:00.000Z",
     "updatedAt": "2025-08-05T15:30:00.000Z"
   },
-  { 
-    "id": 2, 
+  {
+    "id": 2,
     "title": "Crear una API",
-    "description": "Desarrollar una API REST completa con operaciones CRUD", 
+    "description": "Desarrollar una API REST completa usando Express.js",
     "status": 1,
     "createdAt": "2025-08-02T09:15:00.000Z",
     "updatedAt": "2025-08-03T14:20:00.000Z"
   },
-  { 
-    "id": 3, 
-    "title": "Subir el código a GitHub",
-    "description": "Crear repositorio y subir el proyecto completo con documentación", 
+  {
+    "id": 3,
+    "title": "Subir código a GitHub",
+    "description": "Crear repositorio y subir el proyecto con documentación completa",
     "status": 0,
     "createdAt": "2025-08-03T16:45:00.000Z",
     "updatedAt": "2025-08-03T16:45:00.000Z"
+  },
+  {
+    "id": 4,
+    "title": "Probar la API",
+    "description": "Verificar que todos los endpoints funcionan correctamente con los nuevos campos",
+    "status": 0,
+    "createdAt": "2025-08-07T15:36:49.709Z",
+    "updatedAt": "2025-08-07T15:36:49.709Z"
   }
 ]

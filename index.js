@@ -196,7 +196,7 @@ app.post('/api/tasks', (req, res) => {
         // Obtenemos los datos enviados en el cuerpo de la petición
         const { title, description, status } = req.body;
         
-        // Validamos que se haya enviado un título (obligatorio)
+        // Validamos que se haya enviado un título
         if (!title || title.trim() === '') {
             return res.status(400).json({
                 success: false,
@@ -204,7 +204,7 @@ app.post('/api/tasks', (req, res) => {
             });
         }
         
-        // Validamos que se haya enviado una descripción (obligatoria)
+        // Validamos que se haya enviado una descripción
         if (!description || description.trim() === '') {
             return res.status(400).json({
                 success: false,

@@ -1,10 +1,9 @@
 {
   "watch": ["*.js", "*.json"],
-  "ignore": ["node_modules/*", "*.test.js"],
   "ext": "js,json",
-  "exec": "node index.js",
+  "ignore": ["node_modules/", "*.test.js"],
   "env": {
     "NODE_ENV": "development"
   },
-  "delay": "1000"
+  "delay": 2000
 }
