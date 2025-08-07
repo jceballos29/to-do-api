@@ -30,5 +30,13 @@
     "status": 0,
     "createdAt": "2025-08-07T15:36:49.709Z",
     "updatedAt": "2025-08-07T15:36:49.709Z"
+  },
+  {
+    "id": 5,
+    "title": "Probar Arquitectura MVC",
+    "description": "Verificar que la nueva arquitectura MVC funciona correctamente con todos los endpoints",
+    "status": 1,
+    "createdAt": "2025-08-07T16:25:51.111Z",
+    "updatedAt": "2025-08-07T16:25:51.111Z"
   }
 ]

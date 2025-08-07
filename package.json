@@ -1,11 +1,11 @@
 {
   "name": "to-do-api",
-  "version": "1.0.0",
-  "description": "A simple Todo API",
-  "main": "index.js",
+  "version": "2.0.0",
+  "description": "API sencilla para gestión de tareas - Nivel estudiante (Arquitectura MVC)",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
