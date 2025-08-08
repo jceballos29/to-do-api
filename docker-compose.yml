@@ -1,0 +1,76 @@
+# Docker Compose para API de Tareas - PostgreSQL
+# Compatible con Docker Compose 2.0+
+
+services:
+  # Base de datos PostgreSQL
+  postgres:
+    image: postgres:16-alpine  # Última versión estable de PostgreSQL con Alpine Linux
+    container_name: todo-api-postgres
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      # Configuración de la base de datos
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      # Configuraciones adicionales de PostgreSQL
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    ports:
+      - "5432:5432"  # Puerto expuesto para conexiones externas
+    volumes:
+      # Persistencia de datos
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - todo-api-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    # Configuraciones de recursos (opcional)
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+
+  # Administrador de base de datos (pgAdmin) - Opcional para desarrollo
+  pgadmin:
+    image: dpage/pgadmin4:8  # Última versión de pgAdmin
+    container_name: todo-api-pgadmin
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "8080:80"  # Acceso web a pgAdmin
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - todo-api-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    profiles:
+      - admin  # Solo se ejecuta con: docker-compose --profile admin up
+
+# Volúmenes para persistencia de datos
+volumes:
+  postgres_data:
+    driver: local
+    name: todo-api-postgres-data
+  pgadmin_data:
+    driver: local
+    name: todo-api-pgadmin-data
+
+# Red para comunicación entre servicios
+networks:
+  todo-api-network:
+    driver: bridge
+    name: todo-api-network
